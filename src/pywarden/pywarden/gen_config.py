@@ -3,8 +3,6 @@
 
 import os
 import yaml
-import ruamel.yaml
-from pathlib import Path
 import subprocess
 from pywarden import handle_config
 
