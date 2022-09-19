@@ -4,7 +4,6 @@
 import argparse
 from ensurepip import version
 from pywarden import version, handle_config, gen_config
-import sys
 
 from cli import general_tasks, gen_secret, create_item, get_items, get_list
 from login import login
@@ -34,7 +33,7 @@ def arg_parse():
     list_parser = parser.add_argument_group('When listing an object')
     list_parser.add_argument('--list-type', required=False, help='Type of object. Can be organization, collection, or item')
     
-    parser.add_argument('--version', action='version', version='%(prog)s {}'.format(version.pywarden_version()))
+    parser.add_argument('--version', action='store_true', help='show version')
     parser.add_argument('--status', action='store_true', help='Show status of PyWarden')
     parser.add_argument('--check-config', action='store_true', help='Check configuration validity')
     parser.add_argument('--gen-password', action='store_true', help='Generate a password')
@@ -75,6 +74,9 @@ def arg_parse():
         handle_config.manage_configuration(supress=True)
         login.bw_login()
         get_list.list_all(args.list_type)
+
+    elif args.version:
+        print(version.pywarden_version())
 
     else:
         parser.print_help()
