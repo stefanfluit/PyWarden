@@ -1,6 +1,6 @@
 [project]
 name = "PyWarden"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Stefan Fluit", email="stefan@fluit-online.nl" },
 ]
