@@ -5,8 +5,6 @@ import pexpect
 import os
 
 from pywarden import handle_config
-from login import status
-from classes import classes
 
 def bw_unlock():
     child = pexpect.spawn('bw', ['unlock', '--raw'], encoding='utf-8')
