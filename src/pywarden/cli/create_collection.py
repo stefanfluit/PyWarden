@@ -18,7 +18,7 @@ def ensure_org_collection(org_collection_name=None):
         else:
             exit(1)
     else:
-        if check_if_object_exists('collection', org_collection_name) == True:
+        if get_items.check_if_object_exists('collection', org_collection_name) == True:
             if handle_config.VERBOSITY == True:
                 print(f"{classes.bcolors.WARNING}Organization: {org_collection_name} already exists!{classes.bcolors.ENDC}")
             exit(0)
@@ -38,13 +38,13 @@ def ensure_org_collection(org_collection_name=None):
             b64 = b64.replace("b'", "").replace("'", "")
             subprocess.check_output(f'bw create org-collection {b64} --pretty --nointeraction --organizationid={get_items.get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8')
             unlock.bw_sync()
-            if check_if_object_exists('collection', org_collection_name) == True:
+            if get_items.check_if_object_exists('collection', org_collection_name) == True:
                 if handle_config.VERBOSITY == True:
                     print(f"{classes.bcolors.OKGREEN}Organization collection: {org_collection_name} created!{classes.bcolors.ENDC}")
                 else:
                     pass
             else:
-                if VERBOSITY == True:
+                if handle_config.VERBOSITY == True:
                     print(f"{classes.bcolors.WARNING}Organization collection: {org_collection_name} creation failed!{classes.bcolors.ENDC}")
                     exit(1)
                 else:
