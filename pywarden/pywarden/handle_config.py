@@ -5,24 +5,6 @@ import os
 import yaml
 from pathlib import Path
 import validators
-import subprocess
-
-def get_dir(cut=True):
-    if cut == False:
-        pywarden_dir = subprocess.run(['pwd'], stdout=subprocess.PIPE)
-        pywarden_dir = pywarden_dir.stdout.decode('utf-8').strip()
-        return(pywarden_dir)
-    if cut == True:
-        pywarden_dir = subprocess.run(['pwd'], stdout=subprocess.PIPE)
-        pywarden_dir = pywarden_dir.stdout.decode('utf-8').strip()
-        p = Path(pywarden_dir)
-        str(p.parent)
-        p_parts = list(p.parts)
-        p_parts.pop()
-        p_parts.pop()
-        p_parts = '/'.join(p_parts)
-        p_parts = p_parts[1:]
-        return(p_parts)
 
 def manage_configuration(supress=False):
     pywarden_dir = get_dir(cut=False)
