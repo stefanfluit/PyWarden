@@ -9,6 +9,8 @@ from pywarden.cli import general_tasks, gen_secret, create_item, get_items, get_
 from pywarden.login import login
 
 def arg_parse():
+    gen_config.gen_config()
+
     parser = argparse.ArgumentParser(
         description = 'PyWarden {}'.format(version.pywarden_version()),
         usage       = '%(prog)s [options]', 
