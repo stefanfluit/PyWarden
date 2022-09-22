@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from classes.classes import bcolors
+from pywarden.classes.classes import bcolors
 import os
 
 def check_bw_cli():

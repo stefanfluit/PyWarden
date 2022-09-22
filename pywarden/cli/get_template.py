@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from classes import classes
-from pywarden import handle_config
-from login import unlock
+from pywarden.classes import classes
+from pywarden.pywarden import handle_config
+from pywarden.login import unlock
 import subprocess
 import json
 

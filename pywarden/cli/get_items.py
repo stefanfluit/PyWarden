@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
-from classes import classes
+from pywarden.classes import classes
 import json
 
-from pywarden import handle_config
-from login import unlock
+from pywarden.pywarden import handle_config
+from pywarden.login import unlock
 
 def get_organization_id():
     get_organization_name = subprocess.check_output(f'bw list organizations --pretty --nointeraction --session={unlock.bw_unlock()}', shell=True, encoding='utf-8')

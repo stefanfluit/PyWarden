@@ -4,9 +4,9 @@
 import json 
 import subprocess
 
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 
-from classes import classes
+from pywarden.classes import classes
 
 def get_status(SESSION_KEY=None, FETCH_userEmail=False):
     if SESSION_KEY == None:

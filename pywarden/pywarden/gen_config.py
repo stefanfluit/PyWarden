@@ -4,7 +4,7 @@
 import os
 import yaml
 import subprocess
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 
 def gen_config():
     dir = handle_config.get_dir(cut=True)

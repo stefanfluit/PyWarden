@@ -5,11 +5,11 @@ import subprocess
 import base64
 import json
 
-from login import sync
-from cli import get_items
-from pywarden import handle_config
-from classes import classes
-from login import unlock
+from pywarden.login import sync
+from pywarden.cli import get_items
+from pywarden.pywarden import handle_config
+from pywarden.classes import classes
+from pywarden.login import unlock
 
 def bw_create_item(ITEM_NAME, ITEM_USERNAME, ITEM_PASSWORD, ITEM_URL, ITEM_NOTES, ITEM_FOLDER, ITEM_COLLECTION, ITEM_ORG_COLLECTION):
     # Store templates in variables

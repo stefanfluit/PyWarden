@@ -3,7 +3,7 @@
 
 import requests
 import token
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 
 def get_group_id(group_name):
     BW_BEARER_TOKEN = token.get_bearer_token()

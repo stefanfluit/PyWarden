@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from login import status
-from login import unlock
+from pywarden.login import status
+from pywarden.login import unlock
 import pexpect
 
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 
-from classes import classes
+from pywarden.classes import classes
 
 def bw_login():
     BW_STATUS = status.get_status()

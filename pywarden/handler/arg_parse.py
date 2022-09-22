@@ -3,10 +3,10 @@
 
 import argparse
 from ensurepip import version
-from pywarden import version, handle_config, gen_config
+from pywarden.pywarden import version, handle_config, gen_config
 
-from cli import general_tasks, gen_secret, create_item, get_items, get_list
-from login import login
+from pywarden.cli import general_tasks, gen_secret, create_item, get_items, get_list
+from pywarden.login import login
 
 def arg_parse():
     parser = argparse.ArgumentParser(

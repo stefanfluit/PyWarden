@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pywarden import handle_config
-from classes import classes
-from cli import get_items
-from api import get_ids
-from login import unlock
+from pywarden.pywarden import handle_config
+from pywarden.classes import classes
+from pywarden.cli import get_items
+from pywarden.api import get_ids
+from pywarden.login import unlock
 import subprocess
 import json
 import base64

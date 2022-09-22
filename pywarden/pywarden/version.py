@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 import os
 
 def pywarden_version():

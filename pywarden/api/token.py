@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 
 def get_bearer_token():
     headers = {

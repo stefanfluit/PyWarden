@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
-from classes import classes
+from pywarden.classes import classes
 import json
 
-from cli import get_items
+from pywarden.cli import get_items
 
-from pywarden import handle_config
-from login import unlock
+from pywarden.pywarden import handle_config
+from pywarden.login import unlock
 
 def list_all(list_type=None):
     if handle_config.VERBOSITY == True:

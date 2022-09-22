@@ -3,9 +3,9 @@
 
 import pexpect
 
-from pywarden import handle_config
+from pywarden.pywarden import handle_config
 
-from classes import classes
+from pywarden.classes import classes
 
 def bw_sync():
     child = pexpect.spawn('bw', ['sync'], encoding='utf-8')
