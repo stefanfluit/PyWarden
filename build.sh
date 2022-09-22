@@ -26,6 +26,7 @@ run_build() {
 
     # Update version in setup.cfg
     sed -i "s/^version = .*/version = ${VERSION}/" setup.cfg
+    sed -i "s/^version = .*/version = ${VERSION}/" pywarden/pywarden/version.py
 
     printf "Building wheel..\n"
     python3 -m build && \
