@@ -63,6 +63,6 @@ case "${param}" in
         run_build
         ;;
     *)
-        echo "Usage: ${0} {test|build}"
+        printf "Usage: %s {test|build}\n" "${0}"
         exit 1
 esac
