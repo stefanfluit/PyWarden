@@ -1,29 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import yaml
-import subprocess
-from pywarden.pywarden import handle_config
+from pathlib import Path
+import urllib.request
+import os
 
 def gen_config():
-    dir = handle_config.get_dir(cut=True)
+    pywarden_config_template = "https://raw.githubusercontent.com/stefanfluit/PyWarden/main/pywarden_config_template.yaml"
 
-    # Be sure that there are no config files in the project dir or home dir
-    if os.path.isfile(dir + '/' + 'pywarden_config.yml'):
-        print('pywarden_config.yml already exists in the project dir')
-        exit(2)
-    if os.path.isfile(os.path.expanduser('~') + '/pywarden_config.yml'):
-        print('pywarden_config.yml already exists in the home dir')
-        exit(2)
+    # Check if bw_auth_endpoint is set
+    current_unix_user = os.getlogin()
+    # Format string of current user home directory
+    current_unix_user_home = "/home/" + current_unix_user + "/" + "pywarden_config.yaml"
+    # Fetch the template from github, if it does not exist yet
+    if not os.path.isfile(current_unix_user_home):
+        urllib.request.urlretrieve(pywarden_config_template, current_unix_user_home)
+    config_file = Path(current_unix_user_home)
 
-    # Check for the existense of the template file in the project dir
-    valid_config_template_name = 'pywarden_config_template.yaml'
-    if os.path.isfile(dir + '/' + valid_config_template_name):
-        subprocess.run(['cp', dir + '/' + valid_config_template_name, dir + '/' + 'pywarden_config.yaml'])
-        print('Copied template config file to project dir')
-        config_file = dir + '/' + 'pywarden_config.yaml'
-    
     # Edit the empty variables
     with open(config_file, "r") as stream:
         try:
@@ -41,4 +35,3 @@ def gen_config():
     # Write the config file
     with open(config_file, 'w') as file:
         documents = yaml.dump(config, file)
-    print('Config file created')
