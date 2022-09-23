@@ -4,14 +4,15 @@
 from pywarden.classes import classes
 from pywarden.pywarden import handle_config
 from pywarden.login import unlock
+from pywarden.logger import logger
+
 import subprocess
 import json
 
 def get_template(template_type=None):
     if template_type == None:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.WARNING}No template type specified, skipping template retrieval.{classes.bcolors.ENDC}")
-            exit(1)
+            logger.pywarden_logger(Payload="No template type specified", Color="red", ErrorExit=True, Exit=1)
         else:
             exit(1)
     else:

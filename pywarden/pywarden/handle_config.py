@@ -6,8 +6,9 @@ import yaml
 from pathlib import Path
 import validators
 
+from pywarden.logger import logger
+
 def manage_configuration(supress=False):
-    pywarden_dir = get_dir(cut=False)
 
     valid_config_name = 'pywarden_config.yaml'
 

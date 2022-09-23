@@ -7,6 +7,7 @@ from pywarden.pywarden import version, handle_config, gen_config
 
 from pywarden.cli import general_tasks, gen_secret, create_item, get_items, get_list
 from pywarden.login import login
+from pywarden.logger import logger
 
 def arg_parse():
     gen_config.gen_config()
@@ -50,7 +51,7 @@ def arg_parse():
     if args.status:
         handle_config.manage_configuration(supress=True)
         x = general_tasks.get_status()
-        print(x)
+        logger.pywarden_logger(Payload=x, Color="green", ErrorExit=False, Exit=0)
 
     elif args.check_config:
         handle_config.manage_configuration()

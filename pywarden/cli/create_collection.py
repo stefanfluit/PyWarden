@@ -6,21 +6,18 @@ from pywarden.classes import classes
 from pywarden.cli import get_items
 from pywarden.api import get_ids
 from pywarden.login import unlock
+from pywarden.logger import logger
 import subprocess
 import json
 import base64
 
 def ensure_org_collection(org_collection_name=None):
     if org_collection_name == None:
-        if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.WARNING}No org collection name specified, skipping org collection creation.{classes.bcolors.ENDC}")
-            exit(1)
-        else:
-            exit(1)
+        logger.pywarden_logger(Payload="No organization collection name was provided", Color="red")
     else:
         if get_items.check_if_object_exists('collection', org_collection_name) == True:
             if handle_config.VERBOSITY == True:
-                print(f"{classes.bcolors.WARNING}Organization: {org_collection_name} already exists!{classes.bcolors.ENDC}")
+                logger.pywarden_logger(Payload="Organization collection already exists", Color="green")
             exit(0)
         else:
             production_id = get_ids.get_group_id("Production")
@@ -40,12 +37,11 @@ def ensure_org_collection(org_collection_name=None):
             unlock.bw_sync()
             if get_items.check_if_object_exists('collection', org_collection_name) == True:
                 if handle_config.VERBOSITY == True:
-                    print(f"{classes.bcolors.OKGREEN}Organization collection: {org_collection_name} created!{classes.bcolors.ENDC}")
+                    logger.pywarden_logger(Payload="Organization collection created", Color="green")
                 else:
                     pass
             else:
                 if handle_config.VERBOSITY == True:
-                    print(f"{classes.bcolors.WARNING}Organization collection: {org_collection_name} creation failed!{classes.bcolors.ENDC}")
-                    exit(1)
+                    logger.pywarden_logger(Payload="Organization collection could not be created", Color="red")
                 else:
                     exit(1)

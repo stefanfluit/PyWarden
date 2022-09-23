@@ -9,6 +9,7 @@ from pywarden.login import sync
 from pywarden.cli import get_items
 from pywarden.pywarden import handle_config
 from pywarden.classes import classes
+from pywarden.logger import logger
 from pywarden.login import unlock
 
 def bw_create_item(ITEM_NAME, ITEM_USERNAME, ITEM_PASSWORD, ITEM_URL, ITEM_NOTES, ITEM_FOLDER, ITEM_COLLECTION, ITEM_ORG_COLLECTION):
@@ -63,9 +64,9 @@ def bw_create_item(ITEM_NAME, ITEM_USERNAME, ITEM_PASSWORD, ITEM_URL, ITEM_NOTES
     sync.bw_sync()
     if get_items.check_if_object_exists('item', ITEM_NAME) == True:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.OKGREEN}Item created!{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Successfully created item {ITEM_NAME}", Color="green")
             exit(0)
     else:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.WARNING}Item creation failed!{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Failed to create item {ITEM_NAME}", Color="red")
         exit(1)

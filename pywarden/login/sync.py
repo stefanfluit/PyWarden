@@ -4,7 +4,7 @@
 import pexpect
 
 from pywarden.pywarden import handle_config
-
+from pywarden.logger import logger
 from pywarden.classes import classes
 
 def bw_sync():
@@ -14,8 +14,7 @@ def bw_sync():
     BITWARDEN_SYNC_RESULT = child.before.splitlines()[-1]
     if 'complete' != None and 'complete' in BITWARDEN_SYNC_RESULT:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.OKGREEN}Sync complete!{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload="Bitwarden sync complete", Color="green", ErrorExit=False, Exit=False)
     elif 'failed' != None and 'failed' in BITWARDEN_SYNC_RESULT:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.WARNING}Bitwarden sync failed!{classes.bcolors.ENDC}")
-            exit(6)
+            logger.pywarden_logger(Payload="Bitwarden sync failed", Color="red", ErrorExit=True, Exit=False)
