@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import token
+
+from pywarden.api import token
 from pywarden.pywarden import handle_config
 
 def get_group_id(group_name):
