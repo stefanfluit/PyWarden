@@ -15,9 +15,19 @@ def pywarden_logger(Payload=None, Color=None, Prefix="PyWarden ", ErrorExit=None
 
     if Color == "red":
         print("\033[91m" + Prefix + pywarden_version + ":" + " " + Payload + "\033[0m")
-        if Exit == True:
+        if ErrorExit == True:
             exit(1)
+        if Exit == True:
+            exit(0)
     elif Color == "green":
         print("\033[92m" + Prefix + pywarden_version + ":" + " " + Payload + "\033[0m")
+        if ErrorExit == True:
+            exit(1)
+        if Exit == True:
+            exit(0)
     elif Color == "blue":
         print("\033[94m" + Prefix + pywarden_version + ":" + " " + Payload + "\033[0m")
+        if ErrorExit == True:
+            exit(1)
+        if Exit == True:
+            exit(0)
