@@ -8,18 +8,11 @@ import urllib.request
 import os
 
 from pywarden.logger import logger
+from pywarden.pywarden import conf_file
 
 def gen_config():
-    pywarden_config_template = "https://raw.githubusercontent.com/stefanfluit/PyWarden/main/pywarden_config_template.yaml"
 
-    # Check if bw_auth_endpoint is set
-    current_unix_user = os.getlogin()
-    # Format string of current user home directory
-    current_unix_user_home = "/home/" + current_unix_user + "/" + "pywarden_config.yaml"
-    # Fetch the template from github, if it does not exist yet
-    if not os.path.isfile(current_unix_user_home):
-        urllib.request.urlretrieve(pywarden_config_template, current_unix_user_home)
-    config_file = Path(current_unix_user_home)
+    config_file = conf_file.get_conf_file()
 
     with open(config_file, "r") as stream:
         try:
