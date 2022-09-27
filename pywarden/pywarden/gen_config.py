@@ -4,8 +4,7 @@
 from distutils.log import error
 import yaml
 from pathlib import Path
-import urllib.request
-import os
+import getpass
 
 from pywarden.logger import logger
 from pywarden.pywarden import conf_file
@@ -29,8 +28,16 @@ def gen_config():
 
     # Ask the user for input for every variable
     for variable in variables:
-        config[variable] = input('Please enter a value for ' + variable + ': ')
-
-    # Write the config file
+        PASSWD_STRING = "PASSWORD"
+        SECRET_STRING = "SECRET"
+        if PASSWD_STRING in variable:
+            prompt = "Please enter a value for " + variable + ": "
+            config[variable] = getpass.getpass(prompt=prompt, stream=None)
+        elif SECRET_STRING in variable:
+            prompt = "Please enter a value for " + variable + ": "
+            config[variable] = getpass.getpass(prompt=prompt, stream=None)
+        else:
+            config[variable] = input('Please enter a value for ' + variable + ": ")
+        
     with open(config_file, 'w') as file:
         documents = yaml.dump(config, file)
