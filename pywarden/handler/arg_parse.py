@@ -54,7 +54,7 @@ def arg_parse():
         logger.pywarden_logger(Payload=x, Color="green", ErrorExit=False, Exit=0)
 
     elif args.check_config:
-        handle_config.manage_configuration()
+        handle_config.manage_configuration(supress=False, show_path=True)
 
     elif args.gen_password:
         handle_config.manage_configuration(supress=True)
