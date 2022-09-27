@@ -9,9 +9,14 @@ import validators
 from pywarden.logger import logger
 from pywarden.pywarden import conf_file
 
-def manage_configuration(supress=False):
+def manage_configuration(supress=False, show_path=False):
 
     config_file = conf_file.get_conf_file()
+
+    if show_path:
+        # Format a string with a message and the path to the config file
+        message = "The path to the found config file is: " + str(config_file)
+        print(message)
 
     if os.path.isfile(config_file):
         with open(config_file, "r") as stream:
