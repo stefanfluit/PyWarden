@@ -6,7 +6,7 @@ from ensurepip import version
 from pywarden.pywarden import version, handle_config, gen_config
 
 from pywarden.cli import gen_secret, create_item, get_items, get_list
-from pywarden.login import login
+from pywarden.login import login, sync
 from pywarden.logger import logger
 
 def arg_parse():
@@ -28,6 +28,7 @@ def arg_parse():
     add_entry_parser.add_argument('--folder', '-f', required=False, help='folder of the entry')
     add_entry_parser.add_argument('--collection', '-c', required=False, help='collection of the entry')
     add_entry_parser.add_argument('--org-collection', '-o', required=False, help='org-collection of the entry')
+    add_entry_parser.add_argument('--access-group', '-a', required=False, help='group that should have access to the org-collection')
 
     validate_object_parser = parser.add_argument_group('When validating an object')
     validate_object_parser.add_argument('--object-type', required=False, help='Type of object. Can be organization, collection, or item')
@@ -66,7 +67,8 @@ def arg_parse():
     elif args.add_org_entry:
         handle_config.manage_configuration(supress=True)
         login.bw_login()
-        create_item.bw_create_org_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection)
+        sync.bw_sync()
+        create_item.bw_create_org_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection, args.access_group)
 
     elif args.check_exists:
         handle_config.manage_configuration(supress=True)
