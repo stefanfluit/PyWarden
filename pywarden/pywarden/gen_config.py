@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from distutils.log import error
 import yaml
-from pathlib import Path
 import getpass
 
 from pywarden.logger import logger
