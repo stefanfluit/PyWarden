@@ -1,6 +1,6 @@
 # Bitwarden settings
 BITWARDEN_LOG_PATH: "bitwarden_creation.log"
-BITWARDEN_PASSWORD_LENGTH: "16"
+BITWARDEN_PASSWORD_LENGTH: 16
 BITWARDEN_SERVER_URL: "https://vault.bitwarden.com"
 BITWARDEN_PUBLIC_API_URL: "https://api.bitwarden.com"
 BITWARDEN_AUTH_ENDPOINT: "https://identity.bitwarden.com/connect/token"
