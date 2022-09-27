@@ -8,8 +8,6 @@ import pexpect
 
 from pywarden.pywarden import handle_config
 
-from pywarden.classes import classes
-
 def bw_login():
     BW_STATUS = status.get_status()
     if BW_STATUS == "unlocked":
@@ -21,7 +19,8 @@ def bw_login():
         unlock.bw_unlock()
 
     if BW_STATUS == "unauthenticated":
-        logger.pywarden_logger(Payload="Bitwarden is unauthenticated", Color="red", ErrorExit=False, Exit=False)
+        if handle_config.VERBOSITY == True:
+            logger.pywarden_logger(Payload="Bitwarden is unauthenticated, attempting to login", Color="yellow", ErrorExit=False, Exit=False)
         child = pexpect.spawn('bw', ['login', '--apikey'], encoding='utf-8')
         child.expect('client_id')
         child.sendline(handle_config.BITWARDEN_API_CLIENT_ID)
