@@ -8,10 +8,28 @@ import json
 from pywarden.login import sync
 from pywarden.cli import get_items
 from pywarden.pywarden import handle_config
-from pywarden.classes import classes
+from pywarden.logger import logger
 from pywarden.login import unlock
+from pywarden.cli import create_collection
 
-def bw_create_item(ITEM_NAME, ITEM_USERNAME, ITEM_PASSWORD, ITEM_URL, ITEM_NOTES, ITEM_FOLDER, ITEM_COLLECTION, ITEM_ORG_COLLECTION):
+def bw_create_org_item(ITEM_NAME, ITEM_USERNAME, ITEM_PASSWORD, ITEM_URL, ITEM_NOTES, ITEM_FOLDER, ITEM_COLLECTION, ITEM_ORG_COLLECTION):
+    # Ensure all variables are defined, error out if not.
+    if ITEM_NAME is None:
+        if ITEM_NAME != "":
+            logger.pywarden_logger(Payload="ITEM_NAME is not defined", Color="red", ErrorExit=True, Exit=1)
+    if ITEM_USERNAME is None:
+        if ITEM_USERNAME != "":
+            logger.pywarden_logger(Payload="ITEM_USERNAME is not defined", Color="red", ErrorExit=True, Exit=1)
+    if ITEM_PASSWORD is None:
+        if ITEM_PASSWORD != "":
+            logger.pywarden_logger(Payload="ITEM_PASSWORD is not defined", Color="red", ErrorExit=True, Exit=1)
+    if ITEM_ORG_COLLECTION is None:
+        if ITEM_ORG_COLLECTION != "":
+            logger.pywarden_logger(Payload="ITEM_ORG_COLLECTION is not defined", Color="red", ErrorExit=True, Exit=1)
+
+    # Ensure the org-collection exists
+    create_collection.ensure_org_collection(ITEM_ORG_COLLECTION)
+
     # Store templates in variables
     get_template = subprocess.check_output(f'bw get template item --pretty --nointeraction --organizationid={get_items.get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8')
     get_login_template = subprocess.check_output(f'bw get template item.login.uri --pretty --nointeraction --organizationid={get_items.get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8')
@@ -63,9 +81,9 @@ def bw_create_item(ITEM_NAME, ITEM_USERNAME, ITEM_PASSWORD, ITEM_URL, ITEM_NOTES
     sync.bw_sync()
     if get_items.check_if_object_exists('item', ITEM_NAME) == True:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.OKGREEN}Item created!{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Successfully created item {ITEM_NAME}", Color="green")
             exit(0)
     else:
         if handle_config.VERBOSITY == True:
-            print(f"{classes.bcolors.WARNING}Item creation failed!{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Failed to create item {ITEM_NAME}", Color="red")
         exit(1)

@@ -5,6 +5,7 @@ import json
 import subprocess
 
 from pywarden.pywarden import handle_config
+from pywarden.logger import logger
 
 from pywarden.classes import classes
 
@@ -20,7 +21,7 @@ def get_status(SESSION_KEY=None, FETCH_userEmail=False):
         BITWARDEN_STATUS = subprocess.check_output(BITWARDEN_STATUS_FORMAT, shell=True, encoding='utf-8')
         BITWARDEN_STATUS_JSON = json.loads(BITWARDEN_STATUS)
         BITWARDEN_STATUS_VALUE = BITWARDEN_STATUS_JSON['status']
-        print(f"{classes.bcolors.OKGREEN}Status: {BITWARDEN_STATUS_VALUE}{classes.bcolors.ENDC}")
+        logger.pywarden_logger(Payload="Bitwarden status: {}".format(BITWARDEN_STATUS_VALUE), Color="green", ErrorExit=False, Exit=False)
         return BITWARDEN_STATUS_VALUE
     if FETCH_userEmail == True:
         BITWARDEN_STATUS = subprocess.check_output('bw status', shell=True, encoding='utf-8')

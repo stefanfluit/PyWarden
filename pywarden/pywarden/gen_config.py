@@ -2,36 +2,40 @@
 # -*- coding: utf-8 -*-
 
 import yaml
-from pathlib import Path
-import urllib.request
-import os
+import getpass
+
+from pywarden.logger import logger
+from pywarden.pywarden import conf_file
 
 def gen_config():
-    pywarden_config_template = "https://raw.githubusercontent.com/stefanfluit/PyWarden/main/pywarden_config_template.yaml"
 
-    # Check if bw_auth_endpoint is set
-    current_unix_user = os.getlogin()
-    # Format string of current user home directory
-    current_unix_user_home = "/home/" + current_unix_user + "/" + "pywarden_config.yaml"
-    # Fetch the template from github, if it does not exist yet
-    if not os.path.isfile(current_unix_user_home):
-        urllib.request.urlretrieve(pywarden_config_template, current_unix_user_home)
-    config_file = Path(current_unix_user_home)
+    config_file = conf_file.get_conf_file()
 
-    # Edit the empty variables
     with open(config_file, "r") as stream:
         try:
             config = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
-            print(exc)
+            error_message = "Error while loading the config file: " + exc
+            logger.pywarden_logger(Payload=error_message, Color="red")
+
     # Fill a list of all the variables that need to be filled
     variables = []
     for key, value in config.items():
         if value == '':
             variables.append(key)
+
     # Ask the user for input for every variable
     for variable in variables:
-        config[variable] = input('Please enter a value for ' + variable + ': ')
-    # Write the config file
+        PASSWD_STRING = "PASSWORD"
+        SECRET_STRING = "SECRET"
+        if PASSWD_STRING in variable:
+            prompt = "Please enter a value for " + variable + ": "
+            config[variable] = getpass.getpass(prompt=prompt, stream=None)
+        elif SECRET_STRING in variable:
+            prompt = "Please enter a value for " + variable + ": "
+            config[variable] = getpass.getpass(prompt=prompt, stream=None)
+        else:
+            config[variable] = input('Please enter a value for ' + variable + ": ")
+        
     with open(config_file, 'w') as file:
         documents = yaml.dump(config, file)

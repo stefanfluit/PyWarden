@@ -5,8 +5,9 @@ import argparse
 from ensurepip import version
 from pywarden.pywarden import version, handle_config, gen_config
 
-from pywarden.cli import general_tasks, gen_secret, create_item, get_items, get_list
+from pywarden.cli import gen_secret, create_item, get_items, get_list
 from pywarden.login import login
+from pywarden.logger import logger
 
 def arg_parse():
     gen_config.gen_config()
@@ -40,7 +41,7 @@ def arg_parse():
     parser.add_argument('--check-config', action='store_true', help='Check configuration validity')
     parser.add_argument('--gen-password', action='store_true', help='Generate a password')
     parser.add_argument('--gen-config', action='store_true', help='Generate a configuration file')
-    parser.add_argument('--add-entry', action='store_true', help='Add an entry to your vault')
+    parser.add_argument('--add-org-entry', action='store_true', help='Add an entry to your vault')
     parser.add_argument('--check-exists', action='store_true', help='Check if an entry exists in your vault')
     parser.add_argument('--list-org-item', action='store_true', help='List an item from your organization')
     parser.add_argument('--list-item', action='store_true', help='List an item from your personal vault')
@@ -49,11 +50,11 @@ def arg_parse():
 
     if args.status:
         handle_config.manage_configuration(supress=True)
-        x = general_tasks.get_status()
-        print(x)
+        x = login.get_status()
+        logger.pywarden_logger(Payload=x, Color="green", ErrorExit=False, Exit=0)
 
     elif args.check_config:
-        handle_config.manage_configuration()
+        handle_config.manage_configuration(supress=False, show_path=True)
 
     elif args.gen_password:
         handle_config.manage_configuration(supress=True)
@@ -62,10 +63,10 @@ def arg_parse():
     elif args.gen_config:
         gen_config.gen_config()
 
-    elif args.add_entry:
+    elif args.add_org_entry:
         handle_config.manage_configuration(supress=True)
         login.bw_login()
-        create_item.bw_create_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection)
+        create_item.bw_create_org_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection)
 
     elif args.check_exists:
         handle_config.manage_configuration(supress=True)

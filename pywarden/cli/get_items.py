@@ -5,6 +5,7 @@ import subprocess
 from pywarden.classes import classes
 import json
 
+from pywarden.logger import logger
 from pywarden.pywarden import handle_config
 from pywarden.login import unlock
 
@@ -25,22 +26,24 @@ def get_collection_id(COLLECTION_NAME):
 def check_if_object_exists(object_type, object_name):
     if object_type == 'organization':
         if object_name in subprocess.check_output(f'bw list organizations --pretty --nointeraction --session={unlock.bw_unlock()}', shell=True, encoding='utf-8'):
-            print(f"{classes.bcolors.OKGREEN}Found organization: {object_name}{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Organization {object_name} already exists", Color="green", ErrorExit=False, Exit=None)
             return True
         else:
-            print(f"{classes.bcolors.FAIL}Organization not found: {object_name}{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Organization {object_name} does not exist", Color="red", ErrorExit=False, Exit=None)
             return False
+
     if object_type == 'collection':
         if object_name in subprocess.check_output(f'bw list collections --pretty --nointeraction --organizationid={get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8'):
-            print(f"{classes.bcolors.OKGREEN}Found collection: {object_name}{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Collection {object_name} already exists", Color="green", ErrorExit=False, Exit=None)
             return True
         else:
-            print(f"{classes.bcolors.FAIL}Collection not found: {object_name}{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Collection {object_name} does not exist", Color="red", ErrorExit=False, Exit=None)
             return False
+
     if object_type == 'item':
         if object_name in subprocess.check_output(f'bw list items --pretty --nointeraction --organizationid={get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8'):
-            print(f"{classes.bcolors.OKGREEN}Found item: {object_name}{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Item {object_name} already exists", Color="green", ErrorExit=False, Exit=None)
             return True
         else:
-            print(f"{classes.bcolors.FAIL}Item not found: {object_name}{classes.bcolors.ENDC}")
+            logger.pywarden_logger(Payload=f"Item {object_name} does not exist", Color="red", ErrorExit=False, Exit=None)
             return False
