@@ -12,7 +12,7 @@ import subprocess
 import json
 import base64
 
-def ensure_org_collection(org_collection_name=None, access_group=None):
+def ensure_org_collection(org_collection_name=None, access_group=None, debug_mode=False):
     if org_collection_name == None:
         if org_collection_name != '':
             logger.pywarden_logger(Payload="org_collection_name is not defined", Color="red", ErrorExit=True, Exit=False)
@@ -32,10 +32,16 @@ def ensure_org_collection(org_collection_name=None, access_group=None):
             get_template_json['groups'].pop(1)
             # Change the group ID to the access_group group ID
             get_template_json['groups'][0]['id'] = access_group_id
+
+            # If debug mode is true, print the json
+            if debug_mode == True:
+                print(json.dumps(get_template_json, indent=4))
+
             # Encode the json into base64
             b64 = str(base64.b64encode(json.dumps(get_template_json).encode('utf-8')))
             # Strip the b' and ' from the string
             b64 = b64.replace("b'", "").replace("'", "")
+
             subprocess.check_output(f'bw create org-collection {b64} --pretty --nointeraction --organizationid={get_items.get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8')
             sync.bw_sync()
             if get_items.check_if_object_exists('collection', org_collection_name) == True:
