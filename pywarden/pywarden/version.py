@@ -2,5 +2,5 @@
 # -*- coding: utf-8 -*-
 
 def pywarden_version():
-    pywarden_version = "0.0.8"
+    pywarden_version = "0.0.9"
     return pywarden_version
