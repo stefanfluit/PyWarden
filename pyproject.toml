@@ -1,3 +1,3 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools", "wheel", "validators", "requests", "argparse"]
+requires = ["setuptools", "wheel", "validators", "requests", "argparse", "pyyaml", "pexpect", "ensurepip"]

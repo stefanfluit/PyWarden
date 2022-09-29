@@ -1,1 +1,8 @@
+setuptools
+wheel
 validators
+requests
+argparse
+pyyaml
+pexpect
+ensurepip
