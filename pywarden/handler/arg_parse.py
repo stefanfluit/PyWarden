@@ -46,6 +46,7 @@ def arg_parse():
     parser.add_argument('--gen-password', action='store_true', help='Generate a password')
     parser.add_argument('--gen-config', action='store_true', help='Generate a configuration file')
     parser.add_argument('--add-org-entry', action='store_true', help='Add an entry to your vault')
+    parser.add_argument('--add-org-collection', action='store_true', help='Add a collection to your vault')
     parser.add_argument('--check-exists', action='store_true', help='Check if an entry exists in your vault')
     parser.add_argument('--list-org-item', action='store_true', help='List an item from your organization')
     parser.add_argument('--list-item', action='store_true', help='List an item from your personal vault')
@@ -72,6 +73,12 @@ def arg_parse():
         login.bw_login()
         sync.bw_sync()
         create_item.bw_create_org_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection, args.access_group, args.debug, args.match, args.totp)
+
+    elif args.add_org_collection:
+        handle_config.manage_configuration(supress=True)
+        login.bw_login()
+        sync.bw_sync()
+        create_item.ensure_org_collection(args.name, args.access_group, args.debug)
 
     elif args.check_exists:
         handle_config.manage_configuration(supress=True)
