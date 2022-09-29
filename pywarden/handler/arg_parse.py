@@ -6,7 +6,7 @@ from ensurepip import version
 from pywarden.pywarden import version, handle_config, gen_config
 
 from pywarden.cli import gen_secret, create_item, get_items, get_list
-from pywarden.login import login, sync
+from pywarden.login import login, sync, status
 from pywarden.logger import logger
 
 def arg_parse():
@@ -24,7 +24,9 @@ def arg_parse():
     add_entry_parser.add_argument('--username', '-u', required=False, help='username of the entry')
     add_entry_parser.add_argument('--password', '-p', required=False, help='password of the entry')
     add_entry_parser.add_argument('--url', '-l', required=False, help='url of the entry')
+    add_entry_parser.add_argument('--match', '-m', required=False, help='add this parameter if you want to match the url')
     add_entry_parser.add_argument('--notes', '-t', required=False, help='notes of the entry')
+    add_entry_parser.add_argument('--totp', '-tt', required=False, help='add this parameter if you want to add a TOTP')
     add_entry_parser.add_argument('--folder', '-f', required=False, help='folder of the entry')
     add_entry_parser.add_argument('--collection', '-c', required=False, help='collection of the entry')
     add_entry_parser.add_argument('--org-collection', '-o', required=False, help='org-collection of the entry')
@@ -38,6 +40,7 @@ def arg_parse():
     list_parser.add_argument('--list-type', required=False, help='Type of object. Can be organization, collection, or item')
     
     parser.add_argument('--version', action='store_true', help='show version')
+    parser.add_argument('--debug', action='store_true', help='enable debug mode')
     parser.add_argument('--status', action='store_true', help='Show status of PyWarden')
     parser.add_argument('--check-config', action='store_true', help='Check configuration validity')
     parser.add_argument('--gen-password', action='store_true', help='Generate a password')
@@ -51,7 +54,7 @@ def arg_parse():
 
     if args.status:
         handle_config.manage_configuration(supress=True)
-        x = login.get_status()
+        x = status.get_status()
         logger.pywarden_logger(Payload=x, Color="green", ErrorExit=False, Exit=0)
 
     elif args.check_config:
@@ -68,7 +71,7 @@ def arg_parse():
         handle_config.manage_configuration(supress=True)
         login.bw_login()
         sync.bw_sync()
-        create_item.bw_create_org_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection, args.access_group)
+        create_item.bw_create_org_item(args.name, args.username, args.password, args.url, args.notes, args.folder, args.collection, args.org_collection, args.access_group, args.debug, args.match, args.totp)
 
     elif args.check_exists:
         handle_config.manage_configuration(supress=True)
