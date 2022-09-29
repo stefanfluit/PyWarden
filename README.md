@@ -122,45 +122,7 @@ pywarden --add-org-collection --name "MyCollection" --access-group "MyGroup"
 Usage in Ansible
 ============
 PyWarden can be used in Ansible to create Organization Collections and Items in those collections.
-```
-- name: Ensure python3-pip is installed
-  ansible.builtin.package:
-    name: python3-pip
-    state: present
-
-- name: Ensure pip3 is upgraded
-  ansible.builtin.pip:
-    name: pip
-    state: latest
-
-- name: Ensure PyWarden is installed
-  ansible.builtin.pip:
-      name: PyWarden
-      state: latest
-
-- name: Copy template configuration file
-  ansible.builtin.template:
-    src: pywarden_config_template.yaml.j2
-    dest: /root/pywarden_config.yaml
-    mode: 0600
-    remote_src: no
-
-- name: Create Organization Collection
-  ansible.builtin.command:
-    cmd: pywarden --add-org-collection --name "{{ item.name }}" --access-group "{{ item.access_group }}"
-  loop:
-      - { name: "MyCollection", access_group: "MyGroup" }
-      - { name: "MyCollection2", access_group: "MyGroup" }
-      - { name: "MyCollection3", access_group: "MyGroup" }
-
-- name: Create Organization Item
-    ansible.builtin.command:
-        cmd: pywarden --add-org-entry --name "{{ item.name }}" --username "{{ item.username }}" --password "{{ item.password }}" --url "{{ item.url }}" --org-collection "{{ item.org_collection }}" --access-group "{{ item.access_group }}"
-    loop:
-        - { name: "test-28", username: "test-pywarden", password: "test-28", url: "https://url.domain.com", org_collection: "MyCollection", access_group: "MyGroup" }
-        - { name: "test-29", username: "test-pywarden", password: "test-29", url: "https://url.domain.com", org_collection: "MyCollection", access_group: "MyGroup" }
-        - { name: "test-30", username: "test-pywarden", password: "test-30", url: "https://url.domain.com", org_collection: "MyCollection", access_group: "MyGroup" }
-```
+You can use the example role in: `./examples/ansible/ansible-role-pywarden`
 
 Issues
 ============
