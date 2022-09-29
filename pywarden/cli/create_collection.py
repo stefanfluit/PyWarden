@@ -23,7 +23,6 @@ def ensure_org_collection(org_collection_name=None, access_group=None):
         if get_items.check_if_object_exists('collection', org_collection_name) == True:
             if handle_config.VERBOSITY == True:
                 logger.pywarden_logger(Payload="Organization collection already exists", Color="green", ErrorExit=False, Exit=False)
-            exit(0)
         else:
             access_group_id = get_ids.get_group_id(access_group)
             get_template = subprocess.check_output(f'bw get template org-collection --pretty --nointeraction --organizationid={get_items.get_organization_id()} --session={unlock.bw_unlock()}', shell=True, encoding='utf-8')
