@@ -44,7 +44,8 @@ Installation
 
 #### Using pip:
 * PyWarden can be installed using pip: `pip install PyWarden`
-* PyWarden can be updated using pip: `pip install PyWarden --upgrade`
+* PyWarden can be updated using pip: `pip install PyWarden --upgrade`  
+  
 After this, you can use the `pywarden` command to run the application. 
 If not, you can add the path to the `pywarden` executable to your PATH environment variable. 
 This can be done by adding the following line to your `.bashrc` or `.zshrc` file: `export PATH="$HOME/.local/bin:$PATH"`
@@ -53,10 +54,18 @@ Restart your terminal and you should be able to run the `pywarden` command.
 #### Using git:
 * PyWarden can be installed using git: 
 ```
+pip install git+https://github.com/stefanfluit/PyWarden.git
+```
+* To upgrade from git:
+```
+pip install git+https://github.com/stefanfluit/PyWarden.git --upgrade
+```
+* Or build from source:
+```
 git clone https://github.com/stefanfluit/PyWarden.git
 cd PyWarden && ./build.sh test
 ```
-* PyWarden can be updated using git:
+* To update from source:
 ```
 cd PyWarden && git pull
 ./build.sh test
