@@ -1,0 +1,21 @@
+# Bitwarden settings
+BITWARDEN_LOG_PATH: "bitwarden_creation.log"
+BITWARDEN_PASSWORD_LENGTH: 16
+BITWARDEN_SERVER_URL: {{ bitwarden_server_url | default('https://vault.bitwarden.com') }}
+BITWARDEN_PUBLIC_API_URL: {{ bitwarden_api_url | default('https://api.bitwarden.com') }}
+BITWARDEN_AUTH_ENDPOINT: {{ bitwarden_auth_endpoint | default('https://identity.bitwarden.com/connect/token') }}
+
+# API Credentials
+BITWARDEN_API_CLIENT_ID: {{ bitwarden_api_client_id }}
+BITWARDEN_API_CLIENT_SECRET: {{ bitwarden_api_client_secret }}
+
+PYWARDEN_ORG_ENABLED: True
+BITWARDEN_ORGANIZATION_ID: {{ bitwarden_organization_id }}
+BITWARDEN_ORGANIZATION_SECRET: {{ bitwarden_organization_secret }}
+
+# Bitwarden password
+BITWARDEN_MASTER_PASSWORD: {{ bitwarden_master_password }}
+
+# Other
+VERBOSITY: True
+DEBUG: True
