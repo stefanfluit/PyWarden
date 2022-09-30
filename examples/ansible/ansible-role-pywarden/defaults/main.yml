@@ -18,12 +18,12 @@ bitwarden_server_url:
 bitwarden_api_url:
 bitwarden_auth_endpoint:
 
-# Always specify the next variables
+# Always specify the next variables (These are example values)
 bitwarden_api_client_id: "user.d66775b4-6fea-4df2-98f8-aa6900fd7505"
 bitwarden_api_client_secret: "bocFP6MIr414aeXcRGTFBgfurBE5TF"
 bitwarden_organization_id: "organization.2d01732b-a85a-468d-99c5-aa7000a7acc7"
 bitwarden_organization_secret: "Gmc8evnlcWqlTptuKCCIygoaT9AmFa"
-bitwarden_master_password: "Cy0kh6yg1!Jetflash1!"
+bitwarden_master_password: "bVUYG*O7igulh"
 
 pywarden_org_items:
   - name: "My Org Collection"
