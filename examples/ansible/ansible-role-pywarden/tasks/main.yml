@@ -1,21 +1,25 @@
 ---
 # tasks file for ansible-role-pywarden
+
+- name: Ensure pywarden config dir exists
+  ansible.builtin.file:
+    path: "/opt/pywarden"
+    state: directory
+    mode: 0700
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: true
+
 - name: Copy template file
   ansible.builtin.template:
     src: pywarden_config.yaml.j2
-    dest: "/home/{{ ansible_user_id }}/pywarden_config.yaml"
+    dest: "/opt/pywarden/pywarden_config.yaml"
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
     mode: 0600
     remote_src: false
   delegate_to: localhost
-
-- name: Ensure python3-pip is installed
-  ansible.builtin.package:
-    name: python3-pip
-    state: present
   become: true
-  delegate_to: localhost
 
 - name: Ensure pip3 is upgraded
   ansible.builtin.pip:
@@ -31,12 +35,11 @@
 
 - name: Create Organization Collections
   ansible.builtin.shell:
-    cmd: pywarden --add-org-collection --name "{{ item.name }}" --access-group "{{ item.access_group }}"
-  with_items: "{{ pywarden_org_items }}"
+    cmd: PyWarden --add-org-collection --name '{{ item.name }}' --access-group '{{ item.access_group }}'
   delegate_to: localhost
 
 - name: Create Organization Items
   ansible.builtin.shell:
-    cmd: pywarden --add-org-entry --name "{{ item.name }}" --username "{{ item.username }}" --password "{{ item.password }}" --url "{{ item.url }}" --org-collection "{{ item.org_collection }}" --access-group "{{ item.access_group }}"
+    cmd: PyWarden --add-org-entry --name "{{ item.name }}" --username "{{ item.username }}" --password "{{ item.password }}" --url "{{ item.url }}" --org-collection "{{ item.org_collection }}" --access-group "{{ item.access_group }}"
   with_items: "{{ pywarden_org_items }}"
   delegate_to: localhost
