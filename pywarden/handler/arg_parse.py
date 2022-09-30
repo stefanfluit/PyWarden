@@ -5,7 +5,7 @@ import argparse
 from ensurepip import version
 from pywarden.pywarden import version, handle_config, gen_config
 
-from pywarden.cli import gen_secret, create_item, get_items, get_list
+from pywarden.cli import gen_secret, create_item, get_items, get_list, create_collection
 from pywarden.login import login, sync, status
 from pywarden.logger import logger
 
@@ -78,7 +78,7 @@ def arg_parse():
         handle_config.manage_configuration(supress=True)
         login.bw_login()
         sync.bw_sync()
-        create_item.ensure_org_collection(args.name, args.access_group, args.debug)
+        create_collection.ensure_org_collection(args.name, args.access_group, args.debug)
 
     elif args.check_exists:
         handle_config.manage_configuration(supress=True)
