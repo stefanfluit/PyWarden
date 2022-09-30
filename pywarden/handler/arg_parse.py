@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-from ensurepip import version
 from pywarden.pywarden import version, handle_config, gen_config
 
 from pywarden.cli import gen_secret, create_item, get_items, get_list, create_collection
