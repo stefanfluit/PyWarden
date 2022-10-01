@@ -21,6 +21,37 @@
   delegate_to: localhost
   become: true
 
+- name: Ensure prerquisites are installed
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - python3-pip
+    - libc6
+    - build-essential
+
+- name: Add nodejs apt key
+  ansible.builtin.apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: Add nodejs 17.x ppa for apt repo
+  ansible.builtin.apt_repository:
+    repo: deb https://deb.nodesource.com/node_17.x bionic main
+    update_cache: yes
+
+- name: Install nodejs
+  ansible.builtin.apt:
+    update_cache: yes
+    name: nodejs
+    state: present
+
+- name: Install BW CLI
+  ansible.builtin.npm:
+    name: "@bitwarden/cli"
+    global: yes
+
 - name: Ensure pip3 is upgraded
   ansible.builtin.pip:
     name: pip
